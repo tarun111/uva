@@ -24,7 +24,6 @@ int drawCards(list<char> & user, int n, int * faceCover) {
             return i;
         }
         char tmp = user.front();
-//printf("Found....%c\n", tmp);
         user.pop_front();
         middle.push_front(tmp);
         switch (tmp) {
@@ -44,49 +43,29 @@ void play()
     int lastFace = -1;
 
     while (1) {
-// printf("player:%d's turn\n", curr+1);
         if (player[curr].empty()) {
-// printf("No cards found player:%d lost\n", curr+1);
             int win = (curr^1);
             printf("%d %2d\n", win + 1, player[win].size());
             break;
         } else {
-// printf("drawing card, player:%d number of draws->%d\n", curr+1, numDraw);
             x = drawCards(player[curr], numDraw, &needToCover);
             if (needToCover == NULL) {
-// printf("Could not find any face card{%d, %d}\n", x, numDraw);
                 if (x < numDraw) {
-// printf("Player:%d cannot draw enough cards\n", curr+1);
                     // current guy lost
                     continue;
                 }
 
                 if (lastFace > -1) {
-// printf("Player: %d is taking middle\n", (curr^1)+1);
                     lastFace = -1;
                     takeMiddle(player[curr^1]);
                 }
                 numDraw = 1;
             } else {
-// printf("need cover with %d\n", needToCover);
                 lastFace = curr;
                 numDraw = needToCover;
             }
             curr ^= 1;
         }
-// printf("1:");
-// for(list<char>::iterator it = player[0].begin();it != player[0].end();it++) {
-//     printf("%c", *it);
-// }
-// printf("\n2:");
-// for(list<char>::iterator it = player[1].begin();it != player[1].end();it++) {
-//     printf("%c", *it);
-// }
-// printf("\nm:");
-// for(list<char>::iterator it = middle.begin();it != middle.end();it++) {
-//     printf("%c", *it);
-// }
-// puts("");
     }
 }
 
